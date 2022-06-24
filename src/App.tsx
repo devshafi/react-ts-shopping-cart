@@ -1,21 +1,25 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import { Home } from "./pages/Home";
 import { Store } from "./pages/Store";
-import { About } from "./pages/About";
 import { Navbar } from "./components/Navbar";
+import { ShoppingCartProvider } from "./context/ShoppingCartContext";
 
 function App() {
   return (
     <>
-      <Navbar />
-      <Container className="mb-4">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/store" element={<Store />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
-      </Container>
+      <ShoppingCartProvider>
+        <Navbar />
+        <Container className="mb-4">
+          <Routes>
+            <Route path="/" element={<Navigate to="/store" replace={true} />} />
+            <Route path="/store" element={<Store />} />
+            <Route
+              path="/about"
+              element={<Navigate to="/store" replace={true} />}
+            />
+          </Routes>
+        </Container>
+      </ShoppingCartProvider>
     </>
   );
 }
